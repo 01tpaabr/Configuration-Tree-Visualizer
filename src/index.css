@@ -1,0 +1,121 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+@import 'katex/dist/katex.min.css';
+@import 'tailwindcss';
+
+@theme {
+  --color-paper: #fcfcfa;
+  --color-ink: #16181d;
+  --color-hairline: #d8d9d4;
+  --color-selection: #2b5ce6;
+  --color-kept: #0f8a5f;
+  --color-dropped: #8a8f98;
+
+  --color-sunk: #f4f4f1;
+  --color-muted: #5c6068;
+  --color-error: #b4321f;
+
+  --font-sans: 'Inter Variable', Inter, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace,
+    SFMono-Regular, Menlo, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* visible keyboard focus rings everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-selection);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* crisp strokes */
+svg {
+  shape-rendering: geometricPrecision;
+}
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+/* 150 ms numeral cross-fade on probability edits */
+@keyframes numeral-fade {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.numeral-changed {
+  animation: numeral-fade 150ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.katex {
+  font-size: 1em;
+  /* never let a heading's uppercase styling rewrite the symbols: π must not become Π */
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* CodeMirror shares the mono face and the paper palette. */
+.cm-editor {
+  height: 100%;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  background: var(--color-paper);
+}
+.cm-editor .cm-scroller {
+  font-family: var(--font-mono);
+  line-height: 1.6;
+}
+.cm-editor.cm-focused {
+  outline: none;
+}
+.cm-gutters {
+  background: #f4f4f1 !important;
+  border-right: 1px solid #d8d9d4 !important;
+  color: #8a8f98 !important;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d8d9d4;
+  border-radius: 5px;
+  border: 3px solid #fcfcfa;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+input[type='range'] {
+  accent-color: var(--color-selection);
+}
